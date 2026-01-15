@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Baloo 2', system-ui, sans-serif;
+  background: linear-gradient(135deg, #ffcc66, #ff6b35);
+  color: #2b1b0f;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-container {
+  background: #fff7e6;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 24px 28px 20px;
+  max-width: 900px;
+  width: 100%;
+  border: 4px solid #008b4a;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.08),
+    rgba(255, 0, 0, 0.08) 10px,
+    rgba(255, 255, 0, 0.08) 10px,
+    rgba(255, 255, 0, 0.08) 20px,
+    rgba(0, 128, 0, 0.08) 20px,
+    rgba(0, 128, 0, 0.08) 30px
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+header, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+header h1 {
+  font-size: 2.4rem;
+  color: #c62828;
+  text-shadow: 2px 2px 0 #ffd54f;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #4e342e;
+}
+
+.stats {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0 20px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: #ffe0b2;
+  border-radius: 10px;
+  padding: 10px 14px;
+  border: 2px solid #ffb74d;
+  min-width: 180px;
+}
+
+.stat-box .label {
+  font-weight: 600;
+  color: #5d4037;
+}
+
+.stat-box span:last-child {
+  float: right;
+  font-weight: 700;
+  color: #c62828;
+}
+
+.nacho-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+#nacho-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  position: relative;
+}
+
+#nacho-btn:active .nacho-chip {
+  transform: scale(0.92) translateY(4px);
+  box-shadow: 0 4px 0 #b26a00;
+}
+
+.nacho-chip {
+  width: 180px;
+  height: 180px;
+  background: #ffcc66;
+  border-radius: 16px;
+  transform: rotate(45deg);
+  box-shadow: 0 10px 0 #b26a00;
+  border: 4px solid #ffb300;
+  position: relative;
+  overflow: hidden;
+}
+
+.nacho-chip::before,
+.nacho-chip::after {
+  content: "";
+  position: absolute;
+  background: rgba(204, 119, 34, 0.4);
+  border-radius: 50%;
+}
+
+.nacho-chip::before {
+  width: 18px;
+  height: 18px;
+  top: 30%;
+  left: 25%;
+}
+
+.nacho-chip::after {
+  width: 14px;
+  height: 14px;
+  bottom: 25%;
+  right: 30%;
+}
+
+.shop {
+  background: #fff3e0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 2px solid #ffb74d;
+}
+
+.shop h2 {
+  margin-bottom: 10px;
+  color: #bf360c;
+}
+
+.upgrade {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffe0b2;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border: 2px solid #ffb74d;
+}
+
+.upgrade-info h3 {
+  font-size: 1.1rem;
+  color: #6d4c41;
+}
+
+.upgrade-info p {
+  font-size: 0.9rem;
+  color: #4e342e;
+}
+
+.upgrade-info .cost {
+  font-weight: 700;
+  color: #c62828;
+}
+
+.buy-btn {
+  background: #008b4a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 3px 0 #005f32;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+}
+
+.buy-btn:disabled {
+  background: #9e9e9e;
+  box-shadow: 0 3px 0 #616161;
+  cursor: not-allowed;
+}
+
+.buy-btn:not(:disabled):hover {
+  background: #00a85a;
+}
+
+.buy-btn:not(:disabled):active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #005f32;
+}
+
+footer {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #5d4037;
+}
