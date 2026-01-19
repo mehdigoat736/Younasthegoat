@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Spill - Enkeltfil</title>
+    <style>
+        /* CSS - Designet av spillet */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a;
+            color: #4CAF50;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        canvas {
+            border: 4px solid #4CAF50;
+            background-color: #000;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+        }
+        .info {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SNAKE</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    
+    <div class="info">
+        <h2 id="scoreText">Poeng: 0</h2>
+        <p>Styr med piltastene på tastaturet</p>
+    </div>
+
+    <script>
+        // JavaScript - Spillogikken
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreElement = document.getElementById("scoreText");
+
+        let snake = [{x: 200, y: 200}, {x: 180, y: 200}, {x: 160, y: 200}];
+        let foodX, foodY;
+        let dx = 20; // Bevegelse horisontalt
+        let dy = 0;  // Bevegelse vertikalt
+        let score = 0;
+        let changingDirection = false;
+
+        // Start spillet
+        createFood();
+        main();
+
+        document.addEventListener("keydown", changeDirection);
+
+        function main() {
+            if (didGameEnd()) {
+                ctx.fillStyle = "white";
+                ctx.font = "30px Arial";
+                ctx.fillText("GAME OVER", 110, 200);
+                return;
+            }
+
+            changingDirection = false;
+            setTimeout(function onTick() {
+                clearCanvas();
+                drawFood();
+                advanceSnake();
+                drawSnake();
+                main();
+            }, 100); // Hastighet (lavere tall = raskere spill)
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#4CAF50" : "#2E7D32"; // Hodet er lysere
+                ctx.strokeStyle = "black";
+                ctx.fillRect(part.x, part.y, 20, 20);
+                ctx.strokeRect(part.x, part.y, 20, 20);
+            });
+        }
+
+        function advanceSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+
+            if (snake[0].x === foodX && snake[0].y === foodY) {
+                score += 10;
+                scoreElement.innerHTML = "Poeng: " + score;
+                createFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function didGameEnd() {
+            for (let i = 4; i < snake.length; i++) {
+                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
+            }
+            return snake[0].x < 0 || snake[0].x >= canvas.width || 
+                   snake[0].y < 0 || snake[0].y >= canvas.height;
+        }
+
+        function createFood() {
+            foodX = Math.floor(Math.random() * (canvas.width / 20)) * 20;
+            foodY = Math.floor(Math.random() * (canvas.height / 20)) * 20;
+        }
+
+        function changeDirection(event) {
+            if (changingDirection) return;
+            changingDirection = true;
+            const keyPressed = event.keyCode;
+            const up = 38, down = 40, left = 37, right = 39;
+
+            if (keyPressed === left && dx === 0) { dx = -20; dy = 0; }
+            if (keyPressed === up && dy === 0) { dx = 0; dy = -20; }
+            if (keyPressed === right && dx === 0) { dx = 20; dy = 0; }
+            if (keyPressed === down && dy === 0) { dx = 0; dy = 20; }
+        }
+    </script>
+</body>
+</html>
